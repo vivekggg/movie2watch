@@ -127,19 +127,19 @@ def process_movies_data():
     pickle.dump(new_df.to_dict(), open('movies_dict.pkl','wb'))
     pickle.dump(similarity, open('similarity.pkl','wb'))
 
-    print(f"✅ Files generated successfully!")
-    print(f"📊 Movies: {len(new_df)}")
-    print(f"📊 Similarity matrix shape: {similarity.shape}")
+    print(f"Files generated successfully!")
+    print(f"Movies: {len(new_df)}")
+    print(f"Similarity matrix shape: {similarity.shape}")
 
 if __name__ == "__main__":
-    print("🎬 Movie Recommendation Data Generator")
+    print("Movie Recommendation Data Generator")
     print("=" * 40)
     
     try:
         download_nltk_data()
         process_movies_data()
-        print("\n🎉 Data generation completed successfully!")
+        print("\nData generation completed successfully!")
         print("You can now run the Streamlit app with: streamlit run app.py")
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
         print("Please make sure you have the required CSV files in the directory.")
