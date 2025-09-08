@@ -2,22 +2,10 @@
 
 An AI-powered movie recommendation system that uses content-based filtering to suggest similar movies based on plot, cast, crew, and genres.
 
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/vivekggg/movie2watch)
-![Movie Recommender](https://img.shields.io/badge/Movie-Recommender-blue)
-![Python](https://img.shields.io/badge/Python-3.8+-green)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.48+-red)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-
 ## 🚀 Quick Start
 
 **Clone and run the project:**
-```bash
-git clone https://github.com/vivekggg/movie2watch.git
-cd movie2watch
-pip install -r requirements.txt
-python generate_data.py
-streamlit run app.py
-```
+
 
 ## ✨ Features
 
@@ -31,7 +19,7 @@ streamlit run app.py
 
 ## 🚀 Live Demo
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://your-app-url.herokuapp.com)
+https://movie2watch-gpaedaczbhduinkn2wjtc6.streamlit.app/
 
 **🔗 GitHub Repository**: [https://github.com/vivekggg/movie2watch](https://github.com/vivekggg/movie2watch)
 
