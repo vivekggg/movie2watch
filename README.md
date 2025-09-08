@@ -118,43 +118,6 @@ movie2watch/
    - Displays recommendations with movie posters
    - Provides interactive search functionality
 
-## 🚀 Deployment
-
-### Deploy to Heroku
-
-1. **Install Heroku CLI** and login:
-```bash
-heroku login
-```
-
-2. **Create Heroku App**:
-```bash
-heroku create your-movie-recommender-app
-```
-
-3. **Set Environment Variables**:
-```bash
-heroku config:set TMDB_API_KEY=your_tmdb_api_key
-```
-
-4. **Deploy**:
-```bash
-git push heroku main
-```
-
-5. **Generate Data on Heroku**:
-```bash
-heroku run python generate_data.py
-```
-
-### Deploy to Streamlit Cloud
-
-1. Fork this repository
-2. Go to [Streamlit Cloud](https://share.streamlit.io/)
-3. Connect your GitHub account
-4. Select this repository
-5. Deploy!
-
 ## 📊 Dataset
 
 The application uses the TMDB 5000 Movie Dataset which includes:
@@ -174,26 +137,6 @@ response = requests.get(
     f'https://api.themoviedb.org/3/movie/{movie_id}?api_key=YOUR_API_KEY&language=en-US'
 )
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Vivek G**
-- GitHub: [@vivekggg](https://github.com/vivekggg)
-- Email: cinecuco@gmail.com
-- **Repository**: [https://github.com/vivekggg/movie2watch](https://github.com/vivekggg/movie2watch)
-
 ## 🙏 Acknowledgments
 
 - [TMDB](https://www.themoviedb.org/) for movie data and posters
