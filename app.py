@@ -1,3 +1,10 @@
+# Import deploy module to ensure data files are generated during deployment
+try:
+    import deploy
+    print("✅ Deploy module imported successfully")
+except Exception as e:
+    print(f"⚠️ Deploy module import error: {e}")
+
 import streamlit as st
 from streamlit_option_menu import option_menu
 import pickle
@@ -6,6 +13,32 @@ import requests
 import ast
 import time
 import random
+import os
+import sys
+
+# Check if data files exist and generate them if needed
+try:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    movies_dict_path = os.path.join(base_dir, 'movies_dict.pkl')
+    similarity_path = os.path.join(base_dir, 'similarity.pkl')
+    
+    if not os.path.exists(movies_dict_path) or not os.path.exists(similarity_path):
+        print("Data files not found. Generating them now...")
+        import generate_data
+        print("Data generation complete.")
+    else:
+        print(f"Data files found at:\n{movies_dict_path}\n{similarity_path}")
+        
+except Exception as e:
+    print(f"Error during data generation: {e}")
+    # Try running generate_data.py as a subprocess if import fails
+    try:
+        import subprocess
+        print("Attempting to generate data files via subprocess...")
+        subprocess.run([sys.executable, 'generate_data.py'], check=True)
+        print("Data files generated successfully!")
+    except Exception as sub_e:
+        print(f"Failed to generate data files: {sub_e}")
 
 # Page configuration
 st.set_page_config(
@@ -237,9 +270,39 @@ if selectedmenu == "🏠 Home":
         return recommended_movies[:5], recommended_movies_posters[:5]
 
     # Load data
-    movies_dict = pickle.load(open('movies_dict.pkl','rb'))
-    movies = pd.DataFrame(movies_dict)
-    similarity = pickle.load(open('similarity.pkl','rb'))
+    try:
+        # Use absolute paths to ensure files can be found
+        import os
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        movies_dict_path = os.path.join(base_dir, 'movies_dict.pkl')
+        similarity_path = os.path.join(base_dir, 'similarity.pkl')
+        
+        # Print paths for debugging
+        print(f"Looking for movies_dict.pkl at: {movies_dict_path}")
+        print(f"Looking for similarity.pkl at: {similarity_path}")
+        
+        # Check if files exist
+        if not os.path.exists(movies_dict_path) or not os.path.exists(similarity_path):
+            raise FileNotFoundError("Pickle files not found at expected locations")
+            
+        movies_dict = pickle.load(open(movies_dict_path, 'rb'))
+        movies = pd.DataFrame(movies_dict)
+        similarity = pickle.load(open(similarity_path, 'rb'))
+    except FileNotFoundError as e:
+        # Generate data files if they don't exist
+        st.info(f"Generating data files. This may take a few minutes... Error: {str(e)}")
+        import subprocess
+        import sys
+        try:
+            subprocess.run([sys.executable, 'generate_data.py'], check=True)
+            # Try loading again after generation
+            movies_dict = pickle.load(open(movies_dict_path, 'rb'))
+            movies = pd.DataFrame(movies_dict)
+            similarity = pickle.load(open(similarity_path, 'rb'))
+            st.success("Data files generated successfully!")
+        except Exception as e:
+            st.error(f"Error generating data files: {str(e)}")
+            st.stop()
 
     # Main header
     st.markdown('<h1 class="main-header">🎬 Movie Recommender Pro</h1>', unsafe_allow_html=True)
